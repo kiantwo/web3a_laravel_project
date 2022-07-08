@@ -19,6 +19,7 @@
     </style>
 </head>
 <body>
+    <h1>Edit Student Information</h1>
     <section id="creation-form">
     <form action="{{  route('student.update', $student['studid'])  }}" method="post">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
