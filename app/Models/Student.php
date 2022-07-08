@@ -15,11 +15,9 @@ class Student extends Model
     public $incrementing = false;
     public $timestamps = false;
 
-    protected $guarded = [
-        
-    ];
+    protected $guarded = [];
 
-    public function getAllStudents() {
-        return $this->get();
+    public static function getAllStudents() {
+        return self::paginate(10);
     }
 }

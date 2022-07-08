@@ -6,10 +6,19 @@ use Illuminate\Http\Request;
 
 use App\Models\Student;
 
+use App\Models\Program;
+
 use Validator;
 
 class StudentController extends Controller
 {
+    private $years = [
+        '1' => 'First Year',
+        '2' => 'Second Year',
+        '3' => 'Third Year',
+        '4' => 'Fourth Year',
+        '5' => 'Fifth Year'
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -28,7 +37,11 @@ class StudentController extends Controller
     public function create()
     {
         //
-        return view('addstudent');
+        $programs = Program::getProgramsByCollege(1);
+
+        $years = $this->years;
+
+        return view('addstudent')->with(compact('programs', 'years'));
     }
 
     /**
@@ -127,6 +140,13 @@ class StudentController extends Controller
     public function edit($id)
     {
         //
+        $programs = Program::getProgramsByCollege(1);
+
+        $student = Student::findOrFail($id)->toArray();
+
+        $years = $this->years;
+
+        return view('editstudent')->with(compact('student', 'programs', 'years'));
     }
 
     /**
@@ -139,6 +159,36 @@ class StudentController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $rules = [
+            'studfname' => 'required',
+            'studlname' => 'required',
+        ];
+        
+        $messages = [
+            'studfname.required' => 'The First Name should not be empty.',
+            'studlname.required' => 'The Last Name should not be empty.',
+        ];
+
+        $validation = Validator::make($request->input(), $rules, $messages);
+
+        if ($validation->fails()) {     //$validation->passes()
+            return redirect()->back()->withInput()->withErrors($validation);
+        } else {
+            $newStudent = new Student;
+
+            $newStudent->where('studid', $id)->update([
+                'studid' => $request->studid,
+                'studfname' => $request->studfname,
+                'studmname' => $request->studmname,
+                'studlname' => $request->studlname,
+                'studcourse' => $request->studcourse,
+                'studyear' => $request->studyear
+            ]);
+    
+            return redirect()->to(url('students/all'));
+    
+            return redirect()->to(route('students.all'));
+        }
     }
 
     /**

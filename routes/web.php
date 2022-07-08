@@ -34,7 +34,9 @@ use App\Http\Controllers\StudentController;
 
 // Route::resource('students', StudentController::class);
 
-Route::get('students/{id}/list', [StudentController::class, 'show'])->name('student.info');
+// Route::get('students/{id}/list', [StudentController::class, 'show'])->name('student.info');
 Route::get('students/all', [StudentController::class, 'showAll'])->name('students.all');
 Route::get('student/create', [StudentController::class, 'create'])->name('students.create');
 Route::post('student/create', [StudentController::class, 'store'])->name('students.save');
+Route::get('student/edit/{id}', [StudentController::class, 'edit'])->name('student.edit');
+Route::post('student/edit/{id}', [StudentController::class, 'update'])->name('student.update');
