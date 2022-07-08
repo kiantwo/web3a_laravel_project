@@ -9,8 +9,8 @@
     <script src="{{  asset('js/bootstrap.js')   }}"></script>
     <style>
         img {
-            height: 20px;
-            width: 20px;
+            height: 35px;
+            width: 35px;
         }
 
         body {

@@ -95,10 +95,10 @@
             @endforeach
         </select> 
         <br>
-        <button type="submit">
+        <button type="submit" class="btn btn-primary">
             Edit Student
         </button>
-        <button type="reset">
+        <button type="reset" class="btn btn-danger">
             Clear Values
         </button>
     </form>
